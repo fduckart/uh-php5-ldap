@@ -1,0 +1,15 @@
+#!/bin/bash
+if [[ "$#" -gt "0" ]]
+then
+	echo 'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv'
+	while (( "$#" ))
+	do
+		php -f ./ldaprunner.php "$1"	    
+    	shift  # Shift all the parameters down by one.    	
+		if [[ "$#" -gt "0" ]]
+		then
+			echo '    ................................'
+    	fi 
+	done
+	echo '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^'
+fi
