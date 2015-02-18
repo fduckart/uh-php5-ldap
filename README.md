@@ -21,10 +21,10 @@ using PHP version 5.5.14 and GNU bash, version 3.2.57.
 
 **Verify you have PHP installed**
 
-	$ php --version
-	PHP 5.5.14 (cli) (built: Sep  9 2014 19:09:25) 
-	Copyright (c) 1997-2014 The PHP Group
-	Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies
+    $ php --version
+    PHP 5.5.14 (cli) (built: Sep  9 2014 19:09:25) 
+    Copyright (c) 1997-2014 The PHP Group
+    Zend Engine v2.5.0, Copyright (c) 1998-2014 Zend Technologies
 
 
 **Running the Program**
@@ -32,7 +32,7 @@ using PHP version 5.5.14 and GNU bash, version 3.2.57.
 Run the program from the command line: 
 
     $ ./ldaprunner duckart
-	vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
           cn --> Frank R Duckart
          uid --> duckart
       uhuuid --> 17958670
@@ -43,19 +43,19 @@ Run the program from the command line:
 You can run the program with mutltiple UH usernames: </br>
 
     $ ./ldaprunner duckart duckart
-	vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
           cn --> Frank R Duckart
          uid --> duckart
       uhuuid --> 17958670
         mail --> duckart@hawaii.edu
         mail --> frank.duckart@hawaii.edu
-    	................................
+        ................................
           cn --> Frank R Duckart
          uid --> duckart
       uhuuid --> 17958670
         mail --> duckart@hawaii.edu
         mail --> frank.duckart@hawaii.edu
-	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **For More Information**
 

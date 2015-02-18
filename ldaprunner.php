@@ -67,7 +67,7 @@ class LdapRunner
 // Main program.
 $runner = new LdapRunner();
 for ($i = 1; $i < count($argv); $i++) {
-	$runner->search($argv[$i]);	
+    $runner->search($argv[$i]);    
 }
 
 ?>
