@@ -1,5 +1,10 @@
 <?php
 
+define('LDAP_CN', '');      // <- Your assigned CN goes here.
+define('LDAP_PASSWORD', ''); // <- Your password goes here.
+define('LDAP_BINDDN', 'cn='.LDAP_CN.',ou=Specials,dc=hawaii,dc=edu');
+define('LDAP_SEARCHBASE', 'dc=hawaii,dc=edu');
+
 class Host 
 {
     const HOST = 'ldaps://ldap.hawaii.edu';
@@ -16,9 +21,10 @@ class Host
 
 class LdapRunner
 {    
-    const BINDDN   = 'cn=filedrop,ou=Specials,dc=hawaii,dc=edu';
-    const PASSWORD = ''; // <- Your password goes here.
-    const SEARCHBASE = 'dc=hawaii,dc=edu';
+    const CN         = LDAP_CN; 
+    const PASSWORD   = LDAP_PASSWORD; 
+    const BINDDN     = LDAP_BINDDN;
+    const SEARCHBASE = LDAP_SEARCHBASE;
     
     private $connection;
     
@@ -41,7 +47,6 @@ class LdapRunner
     }
        
     function search($uid) {        
-
         $conn = $this->connection;
         $bound = ldap_bind($conn, self::BINDDN, self::PASSWORD);
 
