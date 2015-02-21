@@ -19,35 +19,53 @@ class Host
     }    
 }
 
-class LdapRunner
-{    
-    const CN         = LDAP_CN; 
-    const PASSWORD   = LDAP_PASSWORD; 
-    const BINDDN     = LDAP_BINDDN;
-    const SEARCHBASE = LDAP_SEARCHBASE;
-    
+class Ldap
+{
+    private $host;
     private $connection;
     
     function __construct() {
-        $h = new Host();
-        $conn = ldap_connect($h->host(), $h->port());
+        $host = new Host();
+        $conn = ldap_connect($host->host(), $host->port());
                 
         ldap_set_option($conn, LDAP_OPT_PROTOCOL_VERSION, 3);
         ldap_set_option($conn, LDAP_OPT_REFERRALS, 0);
         ldap_set_option($conn, LDAP_OPT_TIMELIMIT, 5);            
         ldap_set_option($conn, LDAP_OPT_NETWORK_TIMEOUT, 5); 
         
+        $this->host = $host;
         $this->connection = $conn;        
     }
-
+    
     function __destruct() {
         if (isset($this->connection)) {
             ldap_close($this->connection);            
         }
     }
+        
+    function host() {
+        return $this->host;
+    }
+    
+    function connection() {
+        return $this->connection;
+    }    
+}
+
+class LdapRunner
+{    
+    const BINDDN     = LDAP_BINDDN;
+    const PASSWORD   = LDAP_PASSWORD; 
+    const SEARCHBASE = LDAP_SEARCHBASE;
+    
+    private $ldap;
+    
+    function __construct() {
+        $this->ldap = new Ldap();
+    }
        
-    function search($uid) {        
-        $conn = $this->connection;
+    function search($uid) {
+        $conn = $this->ldap->connection();
         $bound = ldap_bind($conn, self::BINDDN, self::PASSWORD);
 
         $attributes = array("cn", "uid", "uhUuid", "mail");
@@ -56,9 +74,13 @@ class LdapRunner
         $result = ldap_search($conn, self::SEARCHBASE, $filter, $attributes);
         $info = ldap_get_entries($conn, $result);
 
-        if ($info["count"] > 0) {
-            for ($i = 0; $i < $info["count"]; $i++) {
-                for ($j = 0; $j < $info[$i]["count"]; $j++){
+        $this->print_results($info);        
+    }
+    
+    function print_results($info) {
+        if ($count = count($info) > 0) {
+            for ($i = 0; $i < $count; $i++) {
+                for ($j = 0; $j < count($info[$i]); $j++) {
                     $data = $info[$i][$j];
                     for ($k = 0; $k < $info[$i][$data]["count"]; $k++) {
                         printf("%12s --> %s\n", $data, $info[$i][$data][$k]);
@@ -66,13 +88,15 @@ class LdapRunner
                 }
             }
         }
-    }    
+    }   
 }
 
+///////////////////////////////////////////////////////////////////////////////
 // Main program.
 $runner = new LdapRunner();
 for ($i = 1; $i < count($argv); $i++) {
     $runner->search($argv[$i]);    
 }
+///////////////////////////////////////////////////////////////////////////////
 
 ?>
